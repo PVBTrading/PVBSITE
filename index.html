@@ -3,65 +3,96 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PVB_Trading</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>PVB_Trading - Main</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="spotify.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    .music-container {
+      margin-top: 30px;
+      background: #1b1b1b;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+    }
+
+    .music-container h2 {
+      color: #76c776;
+      margin-bottom: 15px;
+    }
+
+    .spotify-input {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .spotify-input input {
+      flex: 1;
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: none;
+      background: #121212;
+      color: #76c776;
+    }
+
+    .spotify-input input::placeholder {
+      color: #a0e6a0;
+    }
+
+    .spotify-input button {
+      background: #3da13d;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    iframe {
+      border-radius: 12px;
+      width: 100%;
+      height: 80px;
+      display: none;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="title">Welcome to <span class="shine">PVB_Trading</span></h1>
-    <p class="subtitle">Bright, bold, and green PVB_Trading site! 💚</p>
+  <div class="sidebar">
+    <h2>PVB_Trading</h2>
+    <a href="index.html"><i class="fas fa-home"></i>Main</a>
+    <a href="about.html"><i class="fas fa-users"></i>About Us</a>
+    <a href="docs.html"><i class="fas fa-file-alt"></i>Docs</a>
+  </div>
 
-    <!-- // These are your buttons that open links in new tabs -->
-    <div class="buttons">
-      <button onclick="goTo('https://www.roblox.com/share?code=a842818d1bd03f499deb83463a0ee09c&type=Server')">🐕 Dogly's private server PVB</button>
-      <button onclick="goTo('https://www.roblox.com/share?code=c13873e524df6741b741bffb6a31218a&type=Server')">🐕 Tobi's private server PVB</button>
-      <button onclick="goTo('https://discord.gg/zt9bVbeZJa')">📺 Discord</button>
-    </div>
+  <div class="main">
+    <section>
+      <h1>Welcome to PVB_Trading</h1>
+      <p>The ultimate trading server for Roblox! 💚</p>
+      <div class="buttons">
+        <button onclick="goTo('https://www.roblox.com/share?code=a842818d1bd03f499deb83463a0ee09c&type=Server')">🐕 Dogly's private server</button>
+        <button onclick="goTo('https://www.roblox.com/share?code=c13873e524df6741b741bffb6a31218a&type=Server')">🐕 Tobi's private server</button>
+        <button onclick="goTo('https://discord.gg/zt9bVbeZJa')">📺 Discord</button>
+      </div>
+    </section>
 
-    <!-- // Spotify Music Embed Section -->
-    <div class="music-player">
-      <!-- // Paste your Spotify link below. 
-           Replace the 'src' value with your own Spotify link.
-           Example for a playlist: https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M -->
-      <iframe 
-        id="spotifyPlayer"
-        style="border-radius:12px; margin-top: 30px;"
-        src="https://open.spotify.com/intl-de/embed/track/24qAVeHM8ADVDANShBUIHd" 
-        width="300" height="80" frameBorder="0"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"></iframe>
-
-      <!-- // This button will toggle the Spotify player visibility (Mute/Unmute look) -->
-      <button id="muteButton" onclick="toggleMusic()" style="margin-top: 10px;">🔇 Mute</button>
-    </div>
+    <!-- Music Player -->
+    <section class="music-container">
+      <h2>Music Player</h2>
+      <div class="spotify-input">
+        <input type="text" id="spotifyLink" placeholder="Paste Spotify track, album, or playlist URL">
+        <button id="loadButton">Load</button>
+        <button id="muteButton">🔇 Mute</button>
+      </div>
+      <iframe id="spotifyPlayer" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </section>
   </div>
 
   <footer>Made with 💚 by Tobi</footer>
 
-  <!-- // Link to your JavaScript file (make sure it's named script.js) -->
-  <script src="script.js"></script>
-
   <script>
-    // // Function to open URLs in a new tab
-    function goTo(url) {
-      window.open(url, "_blank");
-    }
-
-    // // Function to show/hide the Spotify player
-    let isMuted = false;
-    function toggleMusic() {
-      const iframe = document.getElementById('spotifyPlayer');
-      const button = document.getElementById('muteButton');
-
-      if (!isMuted) {
-        iframe.style.display = 'none';
-        button.textContent = '🔊 Unmute';
-      } else {
-        iframe.style.display = 'block';
-        button.textContent = '🔇 Mute';
-      }
-      isMuted = !isMuted;
-    }
+    function goTo(url) { window.open(url, "_blank"); }
   </script>
 </body>
 </html>

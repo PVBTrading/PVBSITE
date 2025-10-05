@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PVB_Trading - Docs</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    /* Docs Page Specific Styles */
+    .docs-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .search-create {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .search-create input[type="text"] {
+      flex: 2;
+      padding: 12px 15px 12px 40px;
+      border-radius: 8px;
+      border: none;
+      background: #1b1b1b;
+      color: #76c776;
+      font-size: 1rem;
+    }
+
+    .search-create input[type="text"]::placeholder {
+      color: #a0e6a0;
+    }
+
+    .search-create .fa-magnifying-glass {
+      position: absolute;
+      margin-left: 10px;
+      margin-top: 12px;
+      color: #76c776;
+    }
+
+    .search-create button {
+      background: #3da13d;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: 0.3s;
+    }
+
+    .search-create button:hover {
+      background: #2f7f2f;
+    }
+
+    .search-create select {
+      flex: 1;
+      border-radius: 8px;
+      border: none;
+      background: #1b1b1b;
+      color: #76c776;
+      padding: 12px;
+      font-size: 1rem;
+    }
+
+    /* Doc Card */
+    .doc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .doc-card {
+      background: #1b1b1b;
+      padding: 15px 20px;
+      border-left: 4px solid #76c776;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.2s;
+    }
+
+    .doc-card:hover {
+      transform: scale(1.02);
+    }
+
+    .doc-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .doc-info span {
+      font-size: 1rem;
+      color: #c8ffc8;
+    }
+
+    .doc-info small {
+      font-size: 0.8rem;
+      color: #76c776;
+      opacity: 0.8;
+    }
+
+    .doc-card button {
+      background: #2f7f2f;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .doc-card button:hover {
+      background: #3da13d;
+    }
+
+    /* Notification */
+    .notification {
+      position: fixed;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1b1b1b;
+      color: #76c776;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      transition: top 0.5s;
+      z-index: 1000;
+    }
+
+    .notification.show {
+      top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>PVB_Trading</h2>
+    <a href="index.html"><i class="fas fa-home"></i>Main</a>
+    <a href="about.html"><i class="fas fa-users"></i>About Us</a>
+    <a href="docs.html"><i class="fas fa-file-alt"></i>Docs</a>
+  </div>
+
+  <div class="main">
+    <section>
+      <h1>Docs</h1>
+      <p>Create, manage, and delete your trading documents below:</p>
+
+      <div class="docs-container">
+        <div class="search-create">
+          <i class="fas fa-magnifying-glass"></i>
+          <input type="text" id="docInput" placeholder="Enter doc title..."/>
+          <select id="privacySelect">
+            <option value="Public">Public</option>
+            <option value="Private">Private</option>
+          </select>
+          <button onclick="addDoc()">+</button>
+        </div>
+
+        <ul class="doc-list" id="docList"></ul>
+      </div>
+    </section>
+  </div>
+
+  <div class="notification" id="notification"></div>
+
+  <footer>Made with 💚 by Tobi</footer>
+
+  <script>
+    const docInput = document.getElementById('docInput');
+    const privacySelect = document.getElementById('privacySelect');
+    const docList = document.getElementById('docList');
+    const notification = document.getElementById('notification');
+
+    function showNotification(message) {
+      notification.textContent = message;
+      notification.classList.add('show');
+      setTimeout(() => notification.classList.remove('show'), 2500);
+    }
+
+    function addDoc() {
+      const title = docInput.value.trim();
+      if (!title) return;
+      const privacy = privacySelect.value;
+
+      const li = document.createElement('li');
+      li.className = 'doc-card';
+
+      const info = document.createElement('div');
+      info.className = 'doc-info';
+      const span = document.createElement('span');
+      span.textContent = title;
+      const small = document.createElement('small');
+      small.textContent = `Status: ${privacy}`;
+      info.appendChild(span);
+      info.appendChild(small);
+
+      const delBtn = document.createElement('button');
+      delBtn.textContent = 'Delete';
+      delBtn.onclick = () => {
+        li.remove();
+        showNotification('You have successfully deleted a doc');
+      };
+
+      li.appendChild(info);
+      li.appendChild(delBtn);
+      docList.prepend(li);
+
+      docInput.value = '';
+      privacySelect.value = 'Public';
+      showNotification('You have successfully created a doc');
+    }
+  </script>
+</body>
+</html>
