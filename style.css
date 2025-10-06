@@ -131,3 +131,19 @@ footer {
     padding: 20px;
   }
 }
+.view-stats {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  text-align: right;
+  color: #76c776;
+  font-weight: bold;
+  font-size: 1.1rem;
+  background: rgba(27, 27, 27, 0.8);
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+.view-stats div {
+  margin-bottom: 4px;
+}
